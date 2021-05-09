@@ -20,6 +20,8 @@ export const StudentValidationSchema = Yup.object().shape({
         .required("You have to enter your first name"),
     last_name: Yup.string()
         .required("You have to enter your last name"),
+    address: Yup.string()
+        .required("An address is required"),
     email: Yup.string()
         .email("Invalid email")
         .required("The email is required"),
