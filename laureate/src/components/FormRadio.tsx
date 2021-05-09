@@ -1,13 +1,11 @@
-import React from 'react';
-import { FormLabel, Radio, RadioGroup, Stack, StackDirection } from "@chakra-ui/react";
+import { FormLabel, Radio } from "@chakra-ui/react";
 import { useField } from "formik";
-import { StringOrNumber } from '@chakra-ui/utils';
+import React from 'react';
 
 type FormRadioProps = React.InputHTMLAttributes<HTMLInputElement> & {
     name: string;
     label: string;
 };
-
 
 const FormRadio: React.FC<FormRadioProps> = ({ ...props }) => {
     const [field] = useField({type: "radio", ...props});

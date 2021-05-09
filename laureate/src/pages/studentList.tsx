@@ -1,11 +1,11 @@
-import React from 'react';
-import { Table, Text, Tbody, Th, Thead, Tr, Center, Td, useDisclosure, Button } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-
-import { useDeleteStudent, useGetStudents } from '../schemas/studentSchema';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Button, Center, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import StudentDetails from '../components/StudentDetails';
+import { useDeleteStudent, useGetStudents } from '../schemas/studentSchema';
+
 
 const StudentList: React.FC<{}> = () => {
     const [data, getStudents] = useGetStudents();

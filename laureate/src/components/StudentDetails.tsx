@@ -1,9 +1,8 @@
-import { Box, Center, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, ModalProps, Square, Text, Textarea, useDisclosure } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
+import { Box, Center, Flex, Heading, Square, Text, Textarea } from '@chakra-ui/react';
 import moment from 'moment';
 import React from 'react';
-import Layout from './Layout';
 import { useGetStudent } from '../schemas/studentSchema';
-import { CloseIcon } from '@chakra-ui/icons';
 
 type StudentDetailsProps = {
     isOpen: boolean,
@@ -29,7 +28,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ isOpen, id, onClose }) 
                     <Box w="100%" mt="4" h="100%">
                         <Text><b>Email:</b> {student.email}</Text>
                         <Text mt="2"><b>Date of Birth:</b> {moment(student.birthdate).format('MM/DD/YYYY')}</Text>
-                        <Text mt="2"><b>Gender:</b> {student.gender == '0' ? "Male" : "Female"}</Text>
+                        <Text mt="2"><b>Gender:</b> {student.gender === '0' ? "Male" : "Female"}</Text>
                     </Box>
                     <Box w="100%" h="100%">
                         <label htmlFor="address"><b>Address</b></label>

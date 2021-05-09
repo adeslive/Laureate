@@ -1,13 +1,13 @@
-import React from 'react';
+import { Alert, AlertIcon, Button, Flex, HStack, RadioGroup } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
+import moment from 'moment';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Alert, AlertIcon, Button, Flex, FormLabel, HStack, Radio, RadioGroup } from '@chakra-ui/react';
-
 import FormField from '../components/FormField';
 import FormRadio from '../components/FormRadio';
 import Layout from '../components/Layout';
 import { AddStudentValues, StudentValidationSchema, useSetStudent } from '../schemas/studentSchema';
-import moment from 'moment';
+
 
 const AddStudent: React.FC<{}> = () => {
     const history = useHistory();

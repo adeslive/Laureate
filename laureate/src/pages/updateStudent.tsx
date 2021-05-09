@@ -1,5 +1,5 @@
 import { Alert, AlertIcon, Button, Center, Flex, HStack, RadioGroup, Text } from '@chakra-ui/react';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import moment from 'moment';
 import React from 'react';
 import { useHistory } from 'react-router';
@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import FormField from '../components/FormField';
 import FormRadio from '../components/FormRadio';
 import Layout from '../components/Layout';
-import { useSetStudent, AddStudentValues, StudentValidationSchema, useGetStudent } from '../schemas/studentSchema';
+import { AddStudentValues, StudentValidationSchema, useGetStudent, useSetStudent } from '../schemas/studentSchema';
 
 
 const UpdateStudent: React.FC<{}> = () => {
@@ -44,7 +44,7 @@ const UpdateStudent: React.FC<{}> = () => {
                         .then(() => {
                             setCreated(true);
                             setTimeout(() => {
-                                history.push('/students')
+                                history.push('/')
                             }, 1000);
                         })
                         .catch(data => {

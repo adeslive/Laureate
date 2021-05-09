@@ -2,6 +2,8 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
+const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
 // Interface for Formik initial values
 export interface AddStudentValues {
     first_name: string;
@@ -48,12 +50,12 @@ export const useGetStudents = (): [data: getStudentsProps, getStudents: () => Pr
 
     const getStudents = async () => {
         setStudents({ fetching: true, students: students });
-        const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
         const res = await fetch(`${url}/students`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
+        // Catch should manage the null
         if (data == null)
             throw null;
         if (data.errors)
@@ -62,9 +64,10 @@ export const useGetStudents = (): [data: getStudentsProps, getStudents: () => Pr
     }
 
     // Get Initial students
+    // Set the dependency array to avoid re render loop
     useEffect(() => {
         getStudents();
-    }, []);
+    },[]);
 
     return [{ fetching, students }, getStudents];
 }
@@ -74,21 +77,23 @@ export const useGetStudent = (id: string): [data: getStudentProps, getStudent: (
 
     const getStudent = async () => {
         setStudents({ fetching: true, student: student });
-        const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
         const res = await fetch(`${url}/students/${id}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
+
+        // Catch should manage the null
         if (data == null || data.errors) {
             setStudents({ fetching: false });
             throw data == null ? data : data.errors
-        }else {
+        } else {
             setStudents({ fetching: false, student: data });
         }
     }
 
     // Get Initial student
+    // Set the dependency array to avoid re render loop
     useEffect(() => {
         getStudent();
     }, []);
@@ -98,15 +103,15 @@ export const useGetStudent = (id: string): [data: getStudentProps, getStudent: (
 
 export const useSetStudent = (): [getStudents: (values: AddStudentValues, id?: string) => Promise<void>] => {
     const setStudent = async (values: AddStudentValues, id?: string) => {
-        const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
         const path = `${url}/students/${id !== undefined ? id : ''}`;
         const res = await fetch(path, {
             method: id ? 'PATCH' : 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)
         });
+        // Catch should manage the null
         const data = await res.json();
-         if (data == null || data.errors)
+        if (data == null || data.errors)
             throw data == null ? data : data.errors
     }
     return [setStudent]
@@ -114,11 +119,11 @@ export const useSetStudent = (): [getStudents: (values: AddStudentValues, id?: s
 
 export const useDeleteStudent = () => {
     const deleteStudent = async (id: string) => {
-        const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
         const res = await fetch(`${url}/students/${id}`, {
             method: 'DELETE'
         })
         const data = await res.json();
+        // Catch should manage the null
         if (data == null || data.errors)
             throw data == null ? data : data.errors
     }
