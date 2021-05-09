@@ -8,8 +8,13 @@ using Nodejs and Express;
 To start the webserver you'll have to build it first using:
 
     `yarn run build`
+    
+After that you need to using a web server to serve the static files, maybe with the serve package, or
+using a weserver like Apache or Nginx.
 
-or you can just run it in development:
+    `serve -s build -p 3000`
+
+OR you can just run it in development:
 
     `yarn run start`
 
