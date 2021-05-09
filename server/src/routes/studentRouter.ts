@@ -12,10 +12,9 @@ userRouter.route('/students')
     .post(jsonParser, async (req, res) => {
 
         if (await Student.findOne({ email: req.body.email })) {
-            res.status(500).json({
+            return res.status(500).json({
                 errors: { 'email': 'Email is already taken' }
             });
-            return;
         }
 
         const newUser = await new Student(req.body);
@@ -42,16 +41,14 @@ userRouter.route('/students/:id')
         res.json(await Student.findById(req.params.id))
     })
     .patch(jsonParser, async (req, res) => {
-        const student = await Student.updateOne({_id: req.params.id}, req.body, null, (error, resp) => {
-            if(error){
-                res.status(500).json({
-                    errors: { 'email': 'Email is already taken' }
-                });
-            }
-
-            res.status(200).json({resp})
-        });
-       
+        try{
+            const student = await Student.updateOne({_id: req.params.id}, req.body, null);
+            res.status(200).json({student});
+        }catch{
+            return res.status(500).json({
+                errors: { 'email': 'Email is already taken' }
+            });
+        }
         
     })
     .delete(async (req, res) => {

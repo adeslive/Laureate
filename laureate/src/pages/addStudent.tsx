@@ -18,7 +18,7 @@ const AddStudent: React.FC<{}> = () => {
     {
         first_name: '',
         last_name: '',
-        birthdate: moment().format('YYYY-MM-DD'),
+        birthdate: '',
         gender: '0',
         address: '',
         email: ''
@@ -36,10 +36,18 @@ const AddStudent: React.FC<{}> = () => {
                 initialValues={initialValues}
                 validationSchema={StudentValidationSchema}
                 onSubmit={(values, { setErrors }) => {
-                    //Format date to local timezone
-                    values.birthdate = moment(values.birthdate).format();
+                    // Format date to local timezone
+                    // Prevents date override when doing a submit
+                    let newValues: AddStudentValues = {
+                        first_name: values.first_name,
+                        last_name: values.last_name,
+                        address: values.address,
+                        birthdate: moment(values.birthdate).format(),
+                        gender: values.gender,
+                        email: values.email
+                    }
 
-                    addStudent(values)
+                    addStudent(newValues)
                         .then(() => {
                             setCreated(true);
                             setTimeout(() => {
